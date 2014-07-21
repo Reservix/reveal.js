@@ -1,0 +1,15 @@
+<html>
+
+    <body>
+        <h1>Welcome</h1>
+
+    </body>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://localhost:3000');
+        socket.emit('slidedata', { my: 'data' });
+    </script>
+
+</html>
+

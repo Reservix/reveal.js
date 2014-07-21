@@ -1,0 +1,47 @@
+<html>
+
+    <head>
+       <title>Feedback</title>
+       <meta name="viewport" content="width=500, user-scalable=no">
+    </head>
+
+<body>
+    <h1>Welcome</h1>
+
+    <div id="feedback">init value</div>
+</body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    var socket = io.connect();
+    var feedback = $('#feedback');
+    var userSession = socket.username;
+
+    socket.on('slidedata', function (data) {
+      var dl = $('<dl />');
+
+        console.log(data.feedback);
+        $(data.feedback).find('dd').each(function (answerId, elem) {
+            var link = '/answer/' + data.answerSession + '/' + data.userSession + '/' + answerId;
+            console.log(elem);
+            var link2 = $(elem).wrapInner('<a href="' + link + '" />');
+
+           //console.log(link2.html());
+            dl.append(link2);
+
+            //$('dl', dl).html('<b>a</b>');
+
+        });
+
+        feedback.html(dl);
+        console.log(feedback);
+
+        console.log('my current room ' +userSession);
+
+        //feedback.html($(data.feedback));
+    });
+</script>
+
+</html>
+
